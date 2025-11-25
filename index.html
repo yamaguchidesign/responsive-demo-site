@@ -11,22 +11,31 @@
     <link rel="stylesheet" href="mode-image-height.css" id="mode-image-height" media="none">
 </head>
 <body>
+    <div class="breakpoint-switcher">
+        <div class="breakpoint-switcher-inner">
+            <span>幅</span>
+            <input type="number" id="breakpoint-input" class="breakpoint-input" value="768" min="1">
+            <span>px 以下でスマホレイアウト</span>
+            <button id="breakpoint-update-btn" class="breakpoint-update-btn">更新</button>
+        </div>
+    </div>
     <div class="mode-switcher">
         <div class="mode-switcher-inner">
             <button class="mode-btn active" data-mode="fixed">文字サイズ固定モード</button>
             <button class="mode-btn" data-mode="fluid">文字サイズ可変モード(ウィンドウ幅1280pxを基準とする)</button>
-            <div class="auto-switch-control">
+            <button class="mode-btn" data-mode="mixed">混合モード</button>
+            <div class="auto-switch-control" id="auto-switch-control" style="display: none;">
                 <label class="auto-switch-label">
-                    <input type="radio" name="auto-switch-mode" id="auto-switch-above" class="auto-switch-radio" value="above">
-                    <span>幅</span>
-                    <input type="number" id="threshold-input-above" class="threshold-input" value="1440" min="1">
-                    <span>px以上で可変</span>
-                </label>
-                <label class="auto-switch-label">
-                    <input type="radio" name="auto-switch-mode" id="auto-switch-below" class="auto-switch-radio" value="below">
+                    <input type="checkbox" id="auto-switch-below" class="auto-switch-checkbox" value="below">
                     <span>幅</span>
                     <input type="number" id="threshold-input-below" class="threshold-input" value="1440" min="1">
                     <span>px以下で可変</span>
+                </label>
+                <label class="auto-switch-label">
+                    <input type="checkbox" id="auto-switch-above" class="auto-switch-checkbox" value="above">
+                    <span>幅</span>
+                    <input type="number" id="threshold-input-above" class="threshold-input" value="1440" min="1">
+                    <span>px以上で可変</span>
                 </label>
             </div>
         </div>

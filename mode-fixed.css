@@ -15,3 +15,16 @@
     }
 }
 
+/* JavaScriptで動的に適用されるモバイルレイアウト */
+body.mobile-layout .hero-title {
+    font-size: 32px;
+}
+
+body.mobile-layout .hero-text {
+    font-size: 16px;
+}
+
+body.mobile-layout .section-title {
+    font-size: 28px;
+}
+

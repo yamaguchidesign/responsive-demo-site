@@ -14,10 +14,60 @@ body {
     color: #333;
 }
 
+/* ブレークポイント設定バー */
+.breakpoint-switcher {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 40px;
+    z-index: 201;
+}
+
+.breakpoint-switcher-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.breakpoint-input {
+    width: 80px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.breakpoint-input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+.breakpoint-update-btn {
+    padding: 6px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.breakpoint-update-btn:hover {
+    background-color: #555;
+}
+
 /* モード切り替えバー */
 .mode-switcher {
     position: fixed;
-    top: 0;
+    top: 50px;
     left: 0;
     right: 0;
     background-color: #f0f0f0;
@@ -72,7 +122,7 @@ body {
     user-select: none;
 }
 
-.auto-switch-radio {
+.auto-switch-checkbox {
     cursor: pointer;
 }
 
@@ -92,7 +142,7 @@ body {
 /* 画像モード切り替えバー */
 .image-mode-switcher {
     position: fixed;
-    top: 50px;
+    top: 100px;
     left: 0;
     right: 0;
     background-color: #e8e8e8;
@@ -134,7 +184,7 @@ body {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: sticky;
-    top: 100px;
+    top: 150px;
     z-index: 100;
 }
 
@@ -303,5 +353,41 @@ body {
         flex-direction: column;
         gap: 40px;
     }
+}
+
+/* JavaScriptで動的に適用されるモバイルレイアウト */
+body.mobile-layout .mode-switcher-inner {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+body.mobile-layout .auto-switch-control {
+    margin-left: 0;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+body.mobile-layout .header-inner {
+    flex-direction: column;
+    gap: 20px;
+}
+
+body.mobile-layout .global-menu ul {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+}
+
+body.mobile-layout .hero {
+    padding: 80px 40px;
+}
+
+body.mobile-layout .about {
+    padding: 60px 40px;
+}
+
+body.mobile-layout .about-inner {
+    flex-direction: column;
+    gap: 40px;
 }
 
