@@ -15,6 +15,20 @@
         <div class="mode-switcher-inner">
             <button class="mode-btn active" data-mode="fixed">文字サイズ固定モード</button>
             <button class="mode-btn" data-mode="fluid">文字サイズ可変モード(ウィンドウ幅1280pxを基準とする)</button>
+            <div class="auto-switch-control">
+                <label class="auto-switch-label">
+                    <input type="radio" name="auto-switch-mode" id="auto-switch-above" class="auto-switch-radio" value="above">
+                    <span>幅</span>
+                    <input type="number" id="threshold-input-above" class="threshold-input" value="1440" min="1">
+                    <span>px以上で可変</span>
+                </label>
+                <label class="auto-switch-label">
+                    <input type="radio" name="auto-switch-mode" id="auto-switch-below" class="auto-switch-radio" value="below">
+                    <span>幅</span>
+                    <input type="number" id="threshold-input-below" class="threshold-input" value="1440" min="1">
+                    <span>px以下で可変</span>
+                </label>
+            </div>
         </div>
     </div>
     <div class="image-mode-switcher">
