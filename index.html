@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コーポレートサイト</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mode-fixed.css" id="mode-fixed">
+    <link rel="stylesheet" href="mode-fluid.css" id="mode-fluid" media="none">
+    <link rel="stylesheet" href="mode-image-aspect.css" id="mode-image-aspect" media="none">
+    <link rel="stylesheet" href="mode-image-height.css" id="mode-image-height" media="none">
+</head>
+<body>
+    <div class="mode-switcher">
+        <div class="mode-switcher-inner">
+            <button class="mode-btn active" data-mode="fixed">文字サイズ固定モード</button>
+            <button class="mode-btn" data-mode="fluid">文字サイズ可変モード(ウィンドウ幅1280pxを基準とする)</button>
+        </div>
+    </div>
+    <div class="image-mode-switcher">
+        <div class="image-mode-switcher-inner">
+            <button class="image-mode-btn active" data-image-mode="aspect">画像のアスペクト比を固定</button>
+            <button class="image-mode-btn" data-image-mode="height">画像の高さを固定(ウィンドウ幅1280pxを基準とする)</button>
+        </div>
+    </div>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">LOGO</div>
+            <nav class="global-menu">
+                <ul>
+                    <li><a href="#hero">ホーム</a></li>
+                    <li><a href="#about">会社概要</a></li>
+                    <li><a href="#service">サービス</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-inner">
+                <h1 class="hero-title">未来を創造する</h1>
+                <p class="hero-text">私たちは、お客様のビジネスの成長をサポートします</p>
+                <a href="#contact" class="hero-button">お問い合わせ</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="about-inner">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop" alt="会社概要">
+                </div>
+                <div class="about-content">
+                    <h2 class="section-title">会社概要</h2>
+                    <p class="about-text">
+                        私たちは、お客様のビジネスを成功に導くためのソリューションを提供しています。
+                        長年の経験と実績を活かし、最適なサービスをご提案いたします。
+                    </p>
+                    <p class="about-text">
+                        お客様の課題を解決し、共に成長していくことを目指しています。
+                        質の高いサービスと、迅速な対応でお客様にご満足いただけるよう努めてまいります。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p>&copy; 2025 コーポレートサイト. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+

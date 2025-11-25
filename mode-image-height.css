@@ -1,0 +1,12 @@
+/* 画像の高さを固定モード */
+
+.about-image {
+    height: 400px; /* 固定の高さ */
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+

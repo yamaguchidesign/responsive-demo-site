@@ -1,0 +1,89 @@
+/* 文字サイズ可変モード - 1280px基準でvw単位で指定 */
+
+/* html要素のfont-size */
+html {
+    font-size: 1.25vw; /* 16px / 1280 * 100 */
+}
+
+/* コンテナ幅をスケール（タブバーは除く） */
+
+.header-inner {
+    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+    padding: 1.5625vw 3.125vw; /* 20px 40px / 1280 * 100 */
+}
+
+.hero-inner {
+    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+}
+
+.about-inner {
+    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+    gap: 4.6875vw; /* 60px / 1280 * 100 */
+}
+
+.footer-inner {
+    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+}
+
+/* パディングをスケール（タブバーは除く） */
+
+.hero {
+    padding: 9.375vw 3.125vw; /* 120px 40px / 1280 * 100 */
+}
+
+.about {
+    padding: 6.25vw 3.125vw; /* 80px 40px / 1280 * 100 */
+}
+
+.footer {
+    padding: 3.125vw; /* 40px / 1280 * 100 */
+}
+
+.header {
+    top: 3.90625vw; /* 50px / 1280 * 100 */
+}
+
+/* ギャップをスケール */
+.global-menu ul {
+    gap: 2.34375vw; /* 30px / 1280 * 100 */
+}
+
+/* 各要素のフォントサイズとマージンをスケール */
+.logo {
+    font-size: 1.875vw; /* 24px / 1280 * 100 */
+}
+
+.hero-title {
+    font-size: 3.75vw; /* 48px / 1280 * 100 */
+    margin-bottom: 1.5625vw; /* 20px / 1280 * 100 */
+}
+
+.hero-text {
+    font-size: 1.5625vw; /* 20px / 1280 * 100 */
+    margin-bottom: 3.125vw; /* 40px / 1280 * 100 */
+}
+
+.hero-button {
+    padding: 1.171875vw 3.125vw; /* 15px 40px / 1280 * 100 */
+    font-size: 1.25vw; /* 16px / 1280 * 100 */
+}
+
+.section-title {
+    font-size: 2.8125vw; /* 36px / 1280 * 100 */
+    margin-bottom: 2.34375vw; /* 30px / 1280 * 100 */
+}
+
+.about-text {
+    font-size: 1rem; /* html要素のfont-sizeを継承（1280px時点で16px） */
+    margin-bottom: 1.5625vw; /* 20px / 1280 * 100 */
+}
+
+.global-menu a {
+    font-size: 1.25vw; /* 16px / 1280 * 100 */
+}
+
+.footer p {
+    font-size: 1.09375vw; /* 14px / 1280 * 100 */
+}
+
+/* タブバーの文字サイズとパディングは固定のまま */
