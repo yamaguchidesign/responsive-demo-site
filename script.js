@@ -1,5 +1,23 @@
+// ウィンドウサイズ表示機能
+function updateWindowSize() {
+    const windowSizeText = document.getElementById('window-size-text');
+    if (windowSizeText) {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        windowSizeText.textContent = `${width} × ${height}`;
+    }
+}
+
+// ウィンドウサイズをリアルタイムで更新
+window.addEventListener('resize', function() {
+    updateWindowSize();
+});
+
 // ブレークポイント設定機能
 document.addEventListener('DOMContentLoaded', function() {
+    // 初期表示
+    updateWindowSize();
+    
     const breakpointInput = document.getElementById('breakpoint-input');
     const breakpointUpdateBtn = document.getElementById('breakpoint-update-btn');
     
@@ -25,6 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const breakpoint = parseInt(breakpointInput.value) || 768;
         localStorage.setItem('breakpoint', breakpoint);
         applyBreakpoint();
+        // 混合モードが有効な場合はチェックを実行
+        if (document.querySelector('.mode-btn[data-mode="mixed"]')?.classList.contains('active')) {
+            // checkAutoSwitch関数は後で定義されるので、イベントを発火
+            window.dispatchEvent(new Event('breakpointUpdated'));
+        }
     });
     
     // ウィンドウリサイズ時の監視
@@ -33,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
             applyBreakpoint();
+            // 混合モードが有効な場合はチェックを実行
+            if (document.querySelector('.mode-btn[data-mode="mixed"]')?.classList.contains('active')) {
+                window.dispatchEvent(new Event('breakpointUpdated'));
+            }
         }, 100);
     });
     
@@ -102,6 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 自動切り替えのチェック
     function checkAutoSwitch() {
+        // モバイルレイアウト（SP）の場合は常に固定モード
+        if (document.body.classList.contains('mobile-layout')) {
+            modeFixedCSS.media = 'all';
+            modeFluidCSS.media = 'none';
+            return;
+        }
+
         const windowWidth = window.innerWidth;
         let shouldBeFluid = false;
         
@@ -189,6 +223,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 checkAutoSwitch();
             }
         }, 100);
+    });
+
+    // ブレークポイント更新時のイベント
+    window.addEventListener('breakpointUpdated', function() {
+        checkAutoSwitch();
     });
 
     // 初期状態を復元
