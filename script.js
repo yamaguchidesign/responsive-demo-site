@@ -78,6 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const autoSwitchBelow = document.getElementById('auto-switch-below');
     const thresholdInputAbove = document.getElementById('threshold-input-above');
     const thresholdInputBelow = document.getElementById('threshold-input-below');
+    
+    // 最低文字サイズ関連
+    const minFontsizeControl = document.getElementById('min-fontsize-control');
+    const minFontsizeInput = document.getElementById('min-fontsize-input');
+    const minFontsizeUpdateBtn = document.getElementById('min-fontsize-update-btn');
 
     // ローカルストレージから設定を読み込み
     const savedMode = localStorage.getItem('currentMode') || 'fixed';
@@ -85,15 +90,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const savedAutoSwitchBelow = localStorage.getItem('autoSwitchBelow') === 'true';
     const savedThresholdAbove = localStorage.getItem('thresholdAbove') || '1440';
     const savedThresholdBelow = localStorage.getItem('thresholdBelow') || '1440';
+    const savedMinFontsize = localStorage.getItem('minFontsize') || '12';
     
     thresholdInputAbove.value = savedThresholdAbove;
     thresholdInputBelow.value = savedThresholdBelow;
     autoSwitchAbove.checked = savedAutoSwitchAbove;
     autoSwitchBelow.checked = savedAutoSwitchBelow;
+    minFontsizeInput.value = savedMinFontsize;
 
     // デフォルトは固定モード
     modeFixedCSS.media = 'all';
     modeFluidCSS.media = 'none';
+
+    // 最低文字サイズを適用する関数
+    function applyMinFontsize() {
+        const minFontsize = parseInt(minFontsizeInput.value) || 12;
+        const windowWidth = window.innerWidth;
+        // 1280px基準で1.25vw = 16px → 実際のフォントサイズを計算
+        const calculatedFontsize = windowWidth * 0.0125; // 1.25vw
+        
+        // 計算値が最低文字サイズより小さい場合は最低文字サイズを適用
+        if (calculatedFontsize < minFontsize) {
+            document.documentElement.style.fontSize = minFontsize + 'px';
+        } else {
+            document.documentElement.style.fontSize = '';
+        }
+    }
+
+    // 最低文字サイズ更新ボタンのイベント
+    minFontsizeUpdateBtn.addEventListener('click', function() {
+        const value = parseInt(minFontsizeInput.value) || 12;
+        minFontsizeInput.value = value;
+        localStorage.setItem('minFontsize', value);
+        applyMinFontsize();
+    });
 
     // モードを切り替える関数
     function switchMode(mode) {
@@ -107,20 +137,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // 混合モードの場合は自動切り替えUIを表示
         if (mode === 'mixed') {
             autoSwitchControl.style.display = 'flex';
+            minFontsizeControl.style.display = 'none';
+        } else if (mode === 'fluid') {
+            minFontsizeControl.style.display = 'flex';
+            autoSwitchControl.style.display = 'none';
         } else {
             autoSwitchControl.style.display = 'none';
+            minFontsizeControl.style.display = 'none';
         }
 
         // CSSファイルを切り替え（media属性で有効/無効を制御）
         if (mode === 'fluid') {
             modeFixedCSS.media = 'none';
             modeFluidCSS.media = 'all';
+            applyMinFontsize();
         } else if (mode === 'mixed') {
             // 混合モードの場合は自動切り替えのチェックを実行
+            document.documentElement.style.fontSize = '';
             checkAutoSwitch();
         } else {
             modeFixedCSS.media = 'all';
             modeFluidCSS.media = 'none';
+            document.documentElement.style.fontSize = '';
         }
 
         // ローカルストレージに保存
@@ -222,6 +260,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'mixed')?.classList.contains('active')) {
                 checkAutoSwitch();
             }
+            // fluidモード時は最低文字サイズをチェック
+            if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'fluid')?.classList.contains('active')) {
+                applyMinFontsize();
+            }
         }, 100);
     });
 
@@ -237,10 +279,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageModeButtons = document.querySelectorAll('.image-mode-btn');
     const imageModeAspectCSS = document.getElementById('mode-image-aspect');
     const imageModeHeightCSS = document.getElementById('mode-image-height');
+    const imageModeFluidCSS = document.getElementById('mode-image-fluid');
+    const imageFluidCheckbox = document.getElementById('image-fluid-checkbox');
+
+    // ローカルストレージから画像幅可変設定を読み込み
+    const savedImageFluid = localStorage.getItem('imageFluid') === 'true';
+    imageFluidCheckbox.checked = savedImageFluid;
 
     // デフォルトはアスペクト比固定モード
     imageModeAspectCSS.media = 'all';
     imageModeHeightCSS.media = 'none';
+    imageModeFluidCSS.media = savedImageFluid ? 'all' : 'none';
 
     imageModeButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -259,6 +308,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageModeHeightCSS.media = 'none';
             }
         });
+    });
+
+    // 画像幅可変チェックボックスのイベント
+    imageFluidCheckbox.addEventListener('change', function() {
+        localStorage.setItem('imageFluid', this.checked);
+        imageModeFluidCSS.media = this.checked ? 'all' : 'none';
     });
 });
 

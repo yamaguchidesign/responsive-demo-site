@@ -13,16 +13,16 @@ html {
 }
 
 .hero-inner {
-    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+    max-width: 1440px;
 }
 
 .about-inner {
-    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+    max-width: 1080px;
     gap: 4.6875vw; /* 60px / 1280 * 100 */
 }
 
 .footer-inner {
-    max-width: 93.75vw; /* 1200px / 1280 * 100 */
+    max-width: 1440px;
 }
 
 /* パディングをスケール（タブバーは除く） */
@@ -84,6 +84,47 @@ html {
 
 .footer p {
     font-size: 1.09375vw; /* 14px / 1280 * 100 */
+}
+
+/* ギャラリーセクション */
+.gallery-inner {
+    max-width: 1080px;
+}
+
+.gallery {
+    padding: 6.25vw 3.125vw; /* 80px 40px / 1280 * 100 */
+}
+
+.gallery-tagline {
+    font-size: 1.40625vw; /* 18px / 1280 * 100 */
+    margin-bottom: 3.90625vw; /* 50px / 1280 * 100 */
+}
+
+.gallery-grid {
+    gap: 0;
+}
+
+/* 記事詳細セクション */
+.article-detail {
+    padding: 6.25vw 3.125vw; /* 80px 40px / 1280 * 100 */
+}
+
+.article-detail-inner {
+    max-width: 1080px;
+}
+
+.article-detail-content {
+    max-width: 1080px;
+    padding: 4.6875vw; /* 60px / 1280 * 100 */
+}
+
+.article-detail-title {
+    font-size: 2.5vw; /* 32px / 1280 * 100 */
+    margin-bottom: 2.34375vw; /* 30px / 1280 * 100 */
+}
+
+.article-detail-text {
+    font-size: 1rem; /* html要素のfont-sizeを継承 */
 }
 
 /* タブバーの文字サイズとパディングは固定のまま */

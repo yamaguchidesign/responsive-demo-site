@@ -6,3 +6,9 @@
     object-fit: contain;
 }
 
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
