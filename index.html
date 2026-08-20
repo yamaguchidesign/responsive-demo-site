@@ -27,24 +27,10 @@
     />
   </head>
   <body>
-    <div class="window-size-display" id="window-size-display">
-      <span id="window-size-text">0 × 0</span>
-    </div>
-    <div class="breakpoint-switcher">
-      <div class="breakpoint-switcher-inner">
-        <span>幅</span>
-        <input
-          type="number"
-          id="breakpoint-input"
-          class="breakpoint-input"
-          value="768"
-          min="1"
-        />
-        <span>px 以下でスマホレイアウト</span>
-        <button id="breakpoint-update-btn" class="breakpoint-update-btn">
-          更新
-        </button>
-      </div>
+    <div class="window-size-display priority-low" id="window-size-display" aria-live="polite">
+      <strong id="window-size-text">0 × 0</strong>
+      <span id="device-text">—</span>
+      <span id="priority-text">優先度 —</span>
     </div>
     <div class="settings-switcher">
       <div class="settings-switcher-inner">
@@ -82,39 +68,8 @@
           id="auto-switch-control"
           style="display: none"
         >
-          <span class="control-label">可変にする条件</span>
-          <label class="auto-switch-label">
-            <input
-              type="checkbox"
-              id="auto-switch-below"
-              class="auto-switch-checkbox"
-              value="below"
-            />
-            <input
-              type="number"
-              id="threshold-input-below"
-              class="threshold-input"
-              value="1440"
-              min="1"
-            />
-            <span>px以下</span>
-          </label>
-          <label class="auto-switch-label">
-            <input
-              type="checkbox"
-              id="auto-switch-above"
-              class="auto-switch-checkbox"
-              value="above"
-            />
-            <input
-              type="number"
-              id="threshold-input-above"
-              class="threshold-input"
-              value="1440"
-              min="1"
-            />
-            <span>px以上</span>
-          </label>
+          <span class="control-label">allfuz仕様に合わせて自動調整</span>
+          <span>高＝固定 ／ 中・低＝可変</span>
         </div>
         </section>
         <section class="setting-group image-mode-switcher" aria-labelledby="image-mode-title">
@@ -241,6 +196,49 @@
               私たちの会社は、創業以来お客様のビジネスの成功を第一に考え、革新的なソリューションを提供し続けてきました。デジタルトランスフォーメーションが加速する現代において、私たちは常に最新の技術トレンドを追い、お客様のニーズに合わせた最適なサービスを開発しています。チームには各分野のエキスパートが集まり、プロジェクトの規模や複雑さに関わらず、高品質な成果物をお届けすることをお約束します。また、お客様とのコミュニケーションを大切にし、プロジェクトの進行状況を透明性高く共有することで、信頼関係を築いてまいります。私たちと一緒に、あなたのビジネスを次のステージへと導きましょう。お気軽にご相談ください。経験豊富なスタッフが、お客様の課題解決に向けて全力でサポートいたします。
             </p>
           </div>
+        </div>
+      </section>
+
+      <section id="responsive-spec" class="responsive-spec">
+        <div class="responsive-spec-inner">
+          <h2 class="responsive-spec-title">レスポンシブ対応仕様</h2>
+          <p class="responsive-spec-lead">
+            SP・Tab・PCの制作基準幅を中心に、画面幅ごとの作り込みと確認の強度を3段階で定めます。
+          </p>
+
+          <div class="priority-guide" aria-label="優先度の説明">
+            <div class="priority-guide-item priority-high">
+              <strong>優先度 高</strong>
+              <span>制作基準のデザインをできるだけ忠実に再現</span>
+            </div>
+            <div class="priority-guide-item priority-medium">
+              <strong>優先度 中</strong>
+              <span>clamp()などで基準幅から自然につながるよう調整</span>
+            </div>
+            <div class="priority-guide-item priority-low">
+              <strong>優先度 低</strong>
+              <span>要素幅・余白・文字サイズを流動的に調整</span>
+            </div>
+          </div>
+
+          <div class="range-list" aria-label="画面幅ごとの対応優先度">
+            <div class="range-item range-out"><strong>319px以下</strong><span>SP／優先度 低（動作保証外）</span></div>
+            <div class="range-item priority-low"><strong>320–359px</strong><span>SP／優先度 低</span></div>
+            <div class="range-item priority-medium"><strong>360–374px</strong><span>SP／優先度 中</span></div>
+            <div class="range-item priority-high"><strong>375–414px</strong><span>SP／優先度 高（390px基準）</span></div>
+            <div class="range-item priority-medium"><strong>415–430px</strong><span>SP／優先度 中</span></div>
+            <div class="range-item priority-low"><strong>431–767px</strong><span>SP／優先度 低</span></div>
+            <div class="range-item priority-medium"><strong>768–819px</strong><span>Tab／優先度 中</span></div>
+            <div class="range-item priority-high"><strong>820–1024px</strong><span>Tab／優先度 高（820px基準・1024px確認）</span></div>
+            <div class="range-item priority-medium"><strong>1025–1279px</strong><span>Tab横向き／PC小さめ／優先度 中</span></div>
+            <div class="range-item priority-high"><strong>1280–1440px</strong><span>PC／優先度 高（1440px基準・1280px確認）</span></div>
+            <div class="range-item priority-medium"><strong>1441–1920px</strong><span>PC／優先度 中（1920px確認）</span></div>
+            <div class="range-item priority-low"><strong>1921px以上</strong><span>PC／優先度 低</span></div>
+          </div>
+
+          <p class="responsive-spec-note">
+            基本ブレークポイントは768pxと1025px。最終確認幅は390px、820px、1024px、1280px、1440px、1920pxです。優先度が低い幅でも、崩れ・重なり・横スクロール・操作不能がない状態を保ちます。
+          </p>
         </div>
       </section>
     </main>

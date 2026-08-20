@@ -6,6 +6,7 @@
 
 html {
   font-size: 16px;
+  overflow-x: clip;
 }
 
 body {
@@ -23,7 +24,11 @@ main {
   position: fixed;
   top: 10px;
   right: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1px 10px;
+  min-width: 150px;
+  background-color: #7f8790;
   color: #fff;
   padding: 8px 12px;
   border-radius: 4px;
@@ -34,65 +39,33 @@ main {
   font-family: monospace;
 }
 
-/* ブレークポイント設定バー */
-.breakpoint-switcher {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #e0e0e0;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 40px;
-  z-index: 201;
+.window-size-display strong {
+  grid-row: 1 / 3;
+  align-self: center;
+  padding-right: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
+  font-size: 15px;
 }
 
-.breakpoint-switcher-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
+.window-size-display span {
+  line-height: 1.3;
+  text-align: left;
 }
 
-.breakpoint-input {
-  width: 80px;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.breakpoint-input:focus {
-  outline: none;
-  border-color: #333;
-}
-
-.breakpoint-update-btn {
-  padding: 6px 16px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-  margin-left: 10px;
-}
-
-.breakpoint-update-btn:hover {
-  background-color: #555;
-}
+.window-size-display.priority-high { background-color: #f4511e; }
+.window-size-display.priority-medium { background-color: #ef8d00; }
+.window-size-display.priority-low { background-color: #858b92; }
+.window-size-display.priority-out { background-color: #111; }
 
 /* 表示設定 */
 .settings-switcher {
   position: fixed;
-  top: 50px;
+  top: 0;
   left: 0;
   right: 0;
   background-color: #f3f5f8;
   border-bottom: 1px solid #ddd;
-  padding: 14px 40px 16px;
+  padding: 14px 190px 16px 40px;
   z-index: 200;
 }
 
@@ -227,36 +200,15 @@ main {
   flex-wrap: wrap;
 }
 
+.auto-switch-control > span:last-child {
+  color: #59616b;
+  font-size: 11px;
+}
+
 .control-label {
   color: #59616b;
   font-size: 11px;
   font-weight: 700;
-}
-
-.auto-switch-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 12px;
-  user-select: none;
-}
-
-.auto-switch-checkbox {
-  cursor: pointer;
-}
-
-.threshold-input {
-  width: 80px;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.threshold-input:focus {
-  outline: none;
-  border-color: #333;
 }
 
 .image-fluid-label {
@@ -477,6 +429,139 @@ main {
   color: #555;
 }
 
+/* レスポンシブ仕様 */
+.responsive-spec {
+  padding: 88px 40px;
+  background: #eef4fa;
+  scroll-margin-top: calc(var(--controls-height, 160px) + 20px);
+}
+
+.responsive-spec-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.responsive-spec-title {
+  margin-bottom: 12px;
+  color: #24384b;
+  font-size: 36px;
+}
+
+.responsive-spec-lead {
+  max-width: 720px;
+  margin-bottom: 40px;
+  color: #536271;
+  font-size: 16px;
+}
+
+.priority-guide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 32px;
+  border: 1px solid #bdcbd8;
+}
+
+.priority-guide-item {
+  padding: 20px;
+  background: #fff;
+}
+
+.priority-guide-item + .priority-guide-item {
+  border-left: 1px solid #bdcbd8;
+}
+
+.priority-guide-item strong,
+.priority-guide-item span {
+  display: block;
+}
+
+.priority-guide-item strong {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.priority-guide-item span {
+  color: #5c6873;
+  font-size: 13px;
+}
+
+.priority-guide-item.priority-high strong,
+.range-item.priority-high strong { color: #e94316; }
+.priority-guide-item.priority-medium strong,
+.range-item.priority-medium strong { color: #d77a00; }
+.priority-guide-item.priority-low strong,
+.range-item.priority-low strong { color: #737b83; }
+
+.range-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #bdcbd8;
+  border-left: 1px solid #bdcbd8;
+}
+
+.range-item {
+  min-height: 92px;
+  padding: 16px;
+  background: #fff;
+  border-right: 1px solid #bdcbd8;
+  border-bottom: 1px solid #bdcbd8;
+}
+
+.range-item strong,
+.range-item span {
+  display: block;
+}
+
+.range-item strong {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.range-item span {
+  color: #65717c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.range-item.range-out {
+  background: #1d2227;
+  color: #fff;
+}
+
+.range-item.range-out span { color: #d7dce1; }
+
+.responsive-spec-note {
+  margin-top: 28px;
+  max-width: 920px;
+  color: #536271;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* 混合モード：優先度「中」は基準幅の間をclamp()で滑らかにつなぐ */
+body[data-text-mode="mixed"][data-priority="medium"] .hero-title {
+  font-size: clamp(32px, 3.75vw, 48px);
+}
+
+body[data-text-mode="mixed"][data-priority="medium"] .hero-text {
+  font-size: clamp(16px, 1.5625vw, 20px);
+}
+
+body[data-text-mode="mixed"][data-priority="medium"] .section-title,
+body[data-text-mode="mixed"][data-priority="medium"] .responsive-spec-title {
+  font-size: clamp(28px, 2.8125vw, 36px);
+}
+
+body[data-text-mode="mixed"][data-priority="medium"] .hero {
+  padding-block: clamp(80px, 9.375vw, 120px);
+}
+
+body[data-text-mode="mixed"][data-priority="medium"] .about,
+body[data-text-mode="mixed"][data-priority="medium"] .gallery,
+body[data-text-mode="mixed"][data-priority="medium"] .article-detail {
+  padding-block: clamp(60px, 6.25vw, 80px);
+}
+
 /* フッター */
 .footer {
   background-color: #333;
@@ -491,8 +576,9 @@ main {
 }
 
 /* レスポンシブ */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .settings-switcher {
+    padding-top: 70px;
     padding-inline: 16px;
   }
 
@@ -558,6 +644,20 @@ main {
   .article-detail-title {
     font-size: 24px;
     margin-bottom: 20px;
+  }
+
+  .priority-guide,
+  .range-list {
+    grid-template-columns: 1fr;
+  }
+
+  .priority-guide-item + .priority-guide-item {
+    border-left: 0;
+    border-top: 1px solid #bdcbd8;
+  }
+
+  .responsive-spec {
+    padding: 64px 24px;
   }
 }
 
@@ -628,6 +728,10 @@ body.mobile-layout .article-detail-content {
 body.mobile-layout .article-detail-title {
   font-size: 24px;
   margin-bottom: 20px;
+}
+
+body .header {
+  top: var(--controls-height, 160px);
 }
 
 @media (prefers-reduced-motion: reduce) {

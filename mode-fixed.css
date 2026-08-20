@@ -1,7 +1,7 @@
 /* 文字サイズ固定モード */
 
 /* レスポンシブ時のフォントサイズ調整 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .hero-title {
         font-size: 32px;
     }
@@ -27,4 +27,3 @@ body.mobile-layout .hero-text {
 body.mobile-layout .section-title {
     font-size: 28px;
 }
-

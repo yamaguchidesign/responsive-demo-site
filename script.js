@@ -1,11 +1,38 @@
 // ウィンドウサイズ表示機能
 function updateWindowSize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const windowSizeText = document.getElementById('window-size-text');
-    if (windowSizeText) {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        windowSizeText.textContent = `${width} × ${height}`;
-    }
+    const deviceText = document.getElementById('device-text');
+    const priorityText = document.getElementById('priority-text');
+    const display = document.getElementById('window-size-display');
+    const meta = getViewportMeta(width);
+
+    if (windowSizeText) windowSizeText.textContent = `${width} × ${height}`;
+    if (deviceText) deviceText.textContent = meta.device;
+    if (priorityText) priorityText.textContent = `優先度 ${meta.priority}${meta.outOfScope ? '・動作保証外' : ''}`;
+    if (display) display.className = `window-size-display priority-${meta.priorityClass}`;
+
+    document.body.classList.toggle('mobile-layout', width <= 767);
+    document.body.dataset.priority = meta.priorityClass;
+}
+
+function getViewportMeta(width) {
+    let device = width <= 767 ? 'SP' : width <= 1024 ? 'Tab' : 'PC';
+    if (width >= 1025 && width <= 1279) device = 'Tab横向き／PC小さめ';
+
+    if (width <= 319) return { device, priority: '低', priorityClass: 'out', outOfScope: true };
+    if (width <= 359) return { device, priority: '低', priorityClass: 'low' };
+    if (width <= 374) return { device, priority: '中', priorityClass: 'medium' };
+    if (width <= 414) return { device, priority: '高', priorityClass: 'high' };
+    if (width <= 430) return { device, priority: '中', priorityClass: 'medium' };
+    if (width <= 767) return { device, priority: '低', priorityClass: 'low' };
+    if (width <= 819) return { device, priority: '中', priorityClass: 'medium' };
+    if (width <= 1024) return { device, priority: '高', priorityClass: 'high' };
+    if (width <= 1279) return { device, priority: '中', priorityClass: 'medium' };
+    if (width <= 1440) return { device, priority: '高', priorityClass: 'high' };
+    if (width <= 1920) return { device, priority: '中', priorityClass: 'medium' };
+    return { device, priority: '低', priorityClass: 'low' };
 }
 
 function updateControlsHeight() {
@@ -21,63 +48,13 @@ window.addEventListener('resize', function() {
     updateControlsHeight();
 });
 
-// ブレークポイント設定機能
 document.addEventListener('DOMContentLoaded', function() {
-    // 初期表示
     updateWindowSize();
     updateControlsHeight();
     const settingsSwitcher = document.querySelector('.settings-switcher');
     if (settingsSwitcher && 'ResizeObserver' in window) {
         new ResizeObserver(updateControlsHeight).observe(settingsSwitcher);
     }
-    
-    const breakpointInput = document.getElementById('breakpoint-input');
-    const breakpointUpdateBtn = document.getElementById('breakpoint-update-btn');
-    
-    // ローカルストレージからブレークポイントを読み込み
-    const savedBreakpoint = localStorage.getItem('breakpoint') || '768';
-    breakpointInput.value = savedBreakpoint;
-    
-    // ブレークポイントを適用する関数
-    function applyBreakpoint() {
-        const breakpoint = parseInt(breakpointInput.value) || 768;
-        const windowWidth = window.innerWidth;
-        
-        // bodyにクラスを追加/削除
-        if (windowWidth <= breakpoint) {
-            document.body.classList.add('mobile-layout');
-        } else {
-            document.body.classList.remove('mobile-layout');
-        }
-    }
-    
-    // 更新ボタンのイベント
-    breakpointUpdateBtn.addEventListener('click', function() {
-        const breakpoint = parseInt(breakpointInput.value) || 768;
-        localStorage.setItem('breakpoint', breakpoint);
-        applyBreakpoint();
-        // 混合モードが有効な場合はチェックを実行
-        if (document.querySelector('.mode-btn[data-mode="mixed"]')?.classList.contains('active')) {
-            // checkAutoSwitch関数は後で定義されるので、イベントを発火
-            window.dispatchEvent(new Event('breakpointUpdated'));
-        }
-    });
-    
-    // ウィンドウリサイズ時の監視
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            applyBreakpoint();
-            // 混合モードが有効な場合はチェックを実行
-            if (document.querySelector('.mode-btn[data-mode="mixed"]')?.classList.contains('active')) {
-                window.dispatchEvent(new Event('breakpointUpdated'));
-            }
-        }, 100);
-    });
-    
-    // 初期適用
-    applyBreakpoint();
 });
 
 // モード切り替え機能
@@ -87,10 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const modeFixedCSS = document.getElementById('mode-fixed');
     const modeFluidCSS = document.getElementById('mode-fluid');
     const autoSwitchControl = document.getElementById('auto-switch-control');
-    const autoSwitchAbove = document.getElementById('auto-switch-above');
-    const autoSwitchBelow = document.getElementById('auto-switch-below');
-    const thresholdInputAbove = document.getElementById('threshold-input-above');
-    const thresholdInputBelow = document.getElementById('threshold-input-below');
     
     // 最低文字サイズ関連
     const minFontsizeControl = document.getElementById('min-fontsize-control');
@@ -99,16 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ローカルストレージから設定を読み込み
     const savedMode = localStorage.getItem('currentMode') || 'fixed';
-    const savedAutoSwitchAbove = localStorage.getItem('autoSwitchAbove') === 'true';
-    const savedAutoSwitchBelow = localStorage.getItem('autoSwitchBelow') === 'true';
-    const savedThresholdAbove = localStorage.getItem('thresholdAbove') || '1440';
-    const savedThresholdBelow = localStorage.getItem('thresholdBelow') || '1440';
     const savedMinFontsize = localStorage.getItem('minFontsize') || '12';
-    
-    thresholdInputAbove.value = savedThresholdAbove;
-    thresholdInputBelow.value = savedThresholdBelow;
-    autoSwitchAbove.checked = savedAutoSwitchAbove;
-    autoSwitchBelow.checked = savedAutoSwitchBelow;
     minFontsizeInput.value = savedMinFontsize;
 
     // デフォルトは固定モード
@@ -178,47 +142,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // ローカルストレージに保存
         localStorage.setItem('currentMode', mode);
+        document.body.dataset.textMode = mode;
         requestAnimationFrame(updateControlsHeight);
     }
 
     // 自動切り替えのチェック
     function checkAutoSwitch() {
-        // モバイルレイアウト（SP）の場合は常に固定モード
-        if (document.body.classList.contains('mobile-layout')) {
+        const priority = getViewportMeta(window.innerWidth).priorityClass;
+        if (priority === 'high') {
             modeFixedCSS.media = 'all';
             modeFluidCSS.media = 'none';
-            return;
-        }
-
-        const windowWidth = window.innerWidth;
-        let shouldBeFluid = false;
-        
-        // 両方のチェックボックスが選択されている場合、どちらかの条件を満たせば可変モード
-        if (autoSwitchAbove.checked && autoSwitchBelow.checked) {
-            const thresholdAbove = parseInt(thresholdInputAbove.value) || 1440;
-            const thresholdBelow = parseInt(thresholdInputBelow.value) || 1440;
-            if (windowWidth >= thresholdAbove || windowWidth <= thresholdBelow) {
-                shouldBeFluid = true;
-            }
-        } else if (autoSwitchAbove.checked) {
-            const threshold = parseInt(thresholdInputAbove.value) || 1440;
-            if (windowWidth >= threshold) {
-                shouldBeFluid = true;
-            }
-        } else if (autoSwitchBelow.checked) {
-            const threshold = parseInt(thresholdInputBelow.value) || 1440;
-            if (windowWidth <= threshold) {
-                shouldBeFluid = true;
-            }
-        }
-
-        // モードを切り替え（CSSのみ、ボタンのアクティブ状態は変更しない）
-        if (shouldBeFluid) {
+        } else {
             modeFixedCSS.media = 'none';
             modeFluidCSS.media = 'all';
-        } else {
-            modeFixedCSS.media = 'all';
-            modeFluidCSS.media = 'none';
+            applyMinFontsize();
         }
     }
 
@@ -228,44 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const mode = this.getAttribute('data-mode');
             switchMode(mode);
         });
-    });
-
-    // 自動切り替えチェックボックスのイベント
-    autoSwitchAbove.addEventListener('change', function() {
-        localStorage.setItem('autoSwitchAbove', this.checked);
-        
-        if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'mixed')?.classList.contains('active')) {
-            checkAutoSwitch();
-        }
-    });
-
-    autoSwitchBelow.addEventListener('change', function() {
-        localStorage.setItem('autoSwitchBelow', this.checked);
-        
-        if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'mixed')?.classList.contains('active')) {
-            checkAutoSwitch();
-        }
-    });
-
-    // 閾値入力のイベント
-    thresholdInputAbove.addEventListener('change', function() {
-        const value = parseInt(this.value) || 1440;
-        this.value = value;
-        localStorage.setItem('thresholdAbove', value);
-        
-        if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'mixed')?.classList.contains('active')) {
-            checkAutoSwitch();
-        }
-    });
-
-    thresholdInputBelow.addEventListener('change', function() {
-        const value = parseInt(this.value) || 1440;
-        this.value = value;
-        localStorage.setItem('thresholdBelow', value);
-        
-        if (Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === 'mixed')?.classList.contains('active')) {
-            checkAutoSwitch();
-        }
     });
 
     // ウィンドウリサイズ時の自動切り替え
@@ -281,11 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 applyMinFontsize();
             }
         }, 100);
-    });
-
-    // ブレークポイント更新時のイベント
-    window.addEventListener('breakpointUpdated', function() {
-        checkAutoSwitch();
     });
 
     // 初期状態を復元
