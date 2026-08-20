@@ -8,15 +8,28 @@ function updateWindowSize() {
     }
 }
 
+function updateControlsHeight() {
+    const settings = document.querySelector('.settings-switcher');
+    if (settings) {
+        document.documentElement.style.setProperty('--controls-height', `${settings.offsetTop + settings.offsetHeight}px`);
+    }
+}
+
 // ウィンドウサイズをリアルタイムで更新
 window.addEventListener('resize', function() {
     updateWindowSize();
+    updateControlsHeight();
 });
 
 // ブレークポイント設定機能
 document.addEventListener('DOMContentLoaded', function() {
     // 初期表示
     updateWindowSize();
+    updateControlsHeight();
+    const settingsSwitcher = document.querySelector('.settings-switcher');
+    if (settingsSwitcher && 'ResizeObserver' in window) {
+        new ResizeObserver(updateControlsHeight).observe(settingsSwitcher);
+    }
     
     const breakpointInput = document.getElementById('breakpoint-input');
     const breakpointUpdateBtn = document.getElementById('breakpoint-update-btn');
@@ -129,9 +142,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function switchMode(mode) {
         // アクティブ状態を更新
         modeButtons.forEach(btn => btn.classList.remove('active'));
+        modeButtons.forEach(btn => btn.setAttribute('aria-checked', 'false'));
         const activeButton = Array.from(modeButtons).find(btn => btn.getAttribute('data-mode') === mode);
         if (activeButton) {
             activeButton.classList.add('active');
+            activeButton.setAttribute('aria-checked', 'true');
         }
 
         // 混合モードの場合は自動切り替えUIを表示
@@ -163,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // ローカルストレージに保存
         localStorage.setItem('currentMode', mode);
+        requestAnimationFrame(updateControlsHeight);
     }
 
     // 自動切り替えのチェック
@@ -297,7 +313,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // アクティブ状態を更新
             imageModeButtons.forEach(btn => btn.classList.remove('active'));
+            imageModeButtons.forEach(btn => btn.setAttribute('aria-checked', 'false'));
             this.classList.add('active');
+            this.setAttribute('aria-checked', 'true');
 
             // CSSファイルを切り替え（media属性で有効/無効を制御）
             if (imageMode === 'height') {
@@ -316,4 +334,3 @@ document.addEventListener('DOMContentLoaded', function() {
         imageModeFluidCSS.media = this.checked ? 'all' : 'none';
     });
 });
-

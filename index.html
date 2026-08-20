@@ -46,21 +46,25 @@
         </button>
       </div>
     </div>
-    <div class="mode-switcher">
-      <div class="mode-switcher-inner">
-        <button class="mode-btn active" data-mode="fixed">
-          文字サイズ固定モード
-        </button>
-        <button class="mode-btn" data-mode="fluid">
-          文字サイズ可変モード(ウィンドウ幅1280pxを基準とする)
-        </button>
-        <button class="mode-btn" data-mode="mixed">混合モード</button>
+    <div class="settings-switcher">
+      <div class="settings-switcher-inner">
+        <section class="setting-group mode-switcher" aria-labelledby="text-mode-title">
+          <h2 class="setting-title" id="text-mode-title">文字サイズ</h2>
+          <div class="mode-switcher-inner" role="radiogroup" aria-label="文字サイズの変更方法">
+            <button class="mode-btn active" data-mode="fixed" role="radio" aria-checked="true">
+              固定
+            </button>
+            <button class="mode-btn" data-mode="fluid" role="radio" aria-checked="false">
+              可変 <span class="mode-note">1280px基準</span>
+            </button>
+            <button class="mode-btn" data-mode="mixed" role="radio" aria-checked="false">混合</button>
+          </div>
         <div
           class="min-fontsize-control"
           id="min-fontsize-control"
           style="display: none"
         >
-          <span>最低文字サイズ:</span>
+          <span class="control-label">最低文字サイズ</span>
           <input
             type="number"
             id="min-fontsize-input"
@@ -78,6 +82,7 @@
           id="auto-switch-control"
           style="display: none"
         >
+          <span class="control-label">可変にする条件</span>
           <label class="auto-switch-label">
             <input
               type="checkbox"
@@ -85,7 +90,6 @@
               class="auto-switch-checkbox"
               value="below"
             />
-            <span>幅</span>
             <input
               type="number"
               id="threshold-input-below"
@@ -93,7 +97,7 @@
               value="1440"
               min="1"
             />
-            <span>px以下で可変</span>
+            <span>px以下</span>
           </label>
           <label class="auto-switch-label">
             <input
@@ -102,7 +106,6 @@
               class="auto-switch-checkbox"
               value="above"
             />
-            <span>幅</span>
             <input
               type="number"
               id="threshold-input-above"
@@ -110,27 +113,29 @@
               value="1440"
               min="1"
             />
-            <span>px以上で可変</span>
+            <span>px以上</span>
           </label>
         </div>
-      </div>
-    </div>
-    <div class="image-mode-switcher">
-      <div class="image-mode-switcher-inner">
-        <button class="image-mode-btn active" data-image-mode="aspect">
-          画像のアスペクト比を固定
-        </button>
-        <button class="image-mode-btn" data-image-mode="height">
-          画像をcoverで高さ固定(ウィンドウ幅1280pxを基準とする)
-        </button>
+        </section>
+        <section class="setting-group image-mode-switcher" aria-labelledby="image-mode-title">
+          <h2 class="setting-title" id="image-mode-title">画像</h2>
+          <div class="image-mode-switcher-inner" role="radiogroup" aria-label="画像のトリミング方法">
+            <button class="image-mode-btn active" data-image-mode="aspect" role="radio" aria-checked="true">
+              比率を固定
+            </button>
+            <button class="image-mode-btn" data-image-mode="height" role="radio" aria-checked="false">
+              coverで高さ固定 <span class="mode-note">1280px基準</span>
+            </button>
+          </div>
         <label class="image-fluid-label">
           <input
             type="checkbox"
             id="image-fluid-checkbox"
             class="image-fluid-checkbox"
           />
-          <span>画像幅をウィンドウ幅と連動(1280px基準)</span>
+          <span>画像幅をウィンドウ幅と連動 <small>1280px基準</small></span>
         </label>
+        </section>
       </div>
     </div>
     <header class="header">
