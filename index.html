@@ -43,7 +43,10 @@
             <button class="mode-btn" data-mode="fluid" role="radio" aria-checked="false">
               可変 <span class="mode-note">1440px基準</span>
             </button>
-            <button class="mode-btn" data-mode="mixed" role="radio" aria-checked="false">混合</button>
+            <button class="mode-btn" data-mode="mixed" role="radio" aria-checked="false">
+              固定＋可変
+              <span class="mode-note">画面幅の優先度に合わせて自動調整</span>
+            </button>
           </div>
         <div
           class="min-fontsize-control"
@@ -68,7 +71,6 @@
           id="auto-switch-control"
           style="display: none"
         >
-          <span class="control-label">画面幅の優先度に合わせて自動調整</span>
           <span class="mixed-mode-detail">
             高：制作基準幅のpx値で固定 ／ 中：clamp()で最小・推奨・最大値の間を可変 ／ 低：vwで画面幅に合わせて流動的に調整
           </span>
