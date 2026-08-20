@@ -41,7 +41,7 @@
               固定
             </button>
             <button class="mode-btn" data-mode="fluid" role="radio" aria-checked="false">
-              可変 <span class="mode-note">1280px基準</span>
+              可変 <span class="mode-note">1440px基準</span>
             </button>
             <button class="mode-btn" data-mode="mixed" role="radio" aria-checked="false">混合</button>
           </div>
@@ -68,27 +68,35 @@
           id="auto-switch-control"
           style="display: none"
         >
-          <span class="control-label">allfuz仕様に合わせて自動調整</span>
-          <span>高＝固定 ／ 中・低＝可変</span>
+          <span class="control-label">画面幅の優先度に合わせて自動調整</span>
+          <span class="mixed-mode-detail">
+            高：制作基準幅のpx値で固定 ／ 中：clamp()で最小・推奨・最大値の間を可変 ／ 低：vwで画面幅に合わせて流動的に調整
+          </span>
         </div>
         </section>
         <section class="setting-group image-mode-switcher" aria-labelledby="image-mode-title">
           <h2 class="setting-title" id="image-mode-title">画像</h2>
           <div class="image-mode-switcher-inner" role="radiogroup" aria-label="画像のトリミング方法">
             <button class="image-mode-btn active" data-image-mode="aspect" role="radio" aria-checked="true">
-              比率を固定
+              アスペクト比を固定
+              <span class="mode-note">高さが変わる懸念あり</span>
             </button>
             <button class="image-mode-btn" data-image-mode="height" role="radio" aria-checked="false">
-              coverで高さ固定 <span class="mode-note">1280px基準</span>
+              coverで高さ固定
+              <span class="mode-note">1440px基準。アスペクト比が変わる懸念あり。</span>
             </button>
           </div>
-        <label class="image-fluid-label">
+        <label class="image-fluid-label" for="image-fluid-checkbox">
           <input
             type="checkbox"
             id="image-fluid-checkbox"
             class="image-fluid-checkbox"
           />
-          <span>画像幅をウィンドウ幅と連動 <small>1280px基準</small></span>
+          <span class="toggle-copy">
+            <strong>画像幅をウィンドウ幅と連動</strong>
+            <small>1440px基準</small>
+          </span>
+          <span class="toggle-switch" aria-hidden="true"></span>
         </label>
         </section>
       </div>
@@ -206,35 +214,18 @@
             SP・Tab・PCの制作基準幅を中心に、画面幅ごとの作り込みと確認の強度を3段階で定めます。
           </p>
 
-          <div class="priority-guide" aria-label="優先度の説明">
-            <div class="priority-guide-item priority-high">
-              <strong>優先度 高</strong>
-              <span>制作基準のデザインをできるだけ忠実に再現</span>
-            </div>
-            <div class="priority-guide-item priority-medium">
-              <strong>優先度 中</strong>
-              <span>clamp()などで基準幅から自然につながるよう調整</span>
-            </div>
-            <div class="priority-guide-item priority-low">
-              <strong>優先度 低</strong>
-              <span>要素幅・余白・文字サイズを流動的に調整</span>
-            </div>
+          <div class="responsive-spec-method">
+            <p><strong>優先度 高</strong>制作基準幅で定めたpx値を固定で適用し、基準デザインの再現性を優先します。</p>
+            <p><strong>優先度 中</strong><code>clamp(最小値, 推奨値vw, 最大値)</code>を使い、文字サイズや余白が上下限を超えない範囲で画面幅に追従します。</p>
+            <p><strong>優先度 低</strong>vwを中心に要素幅・余白・文字サイズを流動的に調整します。最低文字サイズを設け、可読性と操作性は維持します。</p>
           </div>
 
-          <div class="range-list" aria-label="画面幅ごとの対応優先度">
-            <div class="range-item range-out"><strong>319px以下</strong><span>SP／優先度 低（動作保証外）</span></div>
-            <div class="range-item priority-low"><strong>320–359px</strong><span>SP／優先度 低</span></div>
-            <div class="range-item priority-medium"><strong>360–374px</strong><span>SP／優先度 中</span></div>
-            <div class="range-item priority-high"><strong>375–414px</strong><span>SP／優先度 高（390px基準）</span></div>
-            <div class="range-item priority-medium"><strong>415–430px</strong><span>SP／優先度 中</span></div>
-            <div class="range-item priority-low"><strong>431–767px</strong><span>SP／優先度 低</span></div>
-            <div class="range-item priority-medium"><strong>768–819px</strong><span>Tab／優先度 中</span></div>
-            <div class="range-item priority-high"><strong>820–1024px</strong><span>Tab／優先度 高（820px基準・1024px確認）</span></div>
-            <div class="range-item priority-medium"><strong>1025–1279px</strong><span>Tab横向き／PC小さめ／優先度 中</span></div>
-            <div class="range-item priority-high"><strong>1280–1440px</strong><span>PC／優先度 高（1440px基準・1280px確認）</span></div>
-            <div class="range-item priority-medium"><strong>1441–1920px</strong><span>PC／優先度 中（1920px確認）</span></div>
-            <div class="range-item priority-low"><strong>1921px以上</strong><span>PC／優先度 低</span></div>
-          </div>
+          <figure class="responsive-spec-figure">
+            <img
+              src="assets/responsive-spec.png"
+              alt="SP、Tab、PCの画面幅ごとの制作基準、重要な確認幅、対応優先度を示したレスポンシブ仕様図"
+            />
+          </figure>
 
           <p class="responsive-spec-note">
             基本ブレークポイントは768pxと1025px。最終確認幅は390px、820px、1024px、1280px、1440px、1920pxです。優先度が低い幅でも、崩れ・重なり・横スクロール・操作不能がない状態を保ちます。

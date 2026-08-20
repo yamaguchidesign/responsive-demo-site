@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyMinFontsize() {
         const minFontsize = parseInt(minFontsizeInput.value) || 12;
         const windowWidth = window.innerWidth;
-        // 1280px基準で1.25vw = 16px → 実際のフォントサイズを計算
-        const calculatedFontsize = windowWidth * 0.0125; // 1.25vw
+        // 1440px基準で1.111111vw = 16px → 実際のフォントサイズを計算
+        const calculatedFontsize = windowWidth * (16 / 1440);
         
         // 計算値が最低文字サイズより小さい場合は最低文字サイズを適用
         if (calculatedFontsize < minFontsize) {
