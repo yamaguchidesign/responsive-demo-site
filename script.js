@@ -18,21 +18,19 @@ function updateWindowSize() {
 }
 
 function getViewportMeta(width) {
-    let device = width <= 767 ? 'SP' : width <= 1024 ? 'Tab' : 'PC';
-    if (width >= 1025 && width <= 1279) device = 'Tab横向き／PC小さめ';
-
-    if (width <= 319) return { device, priority: '低', priorityClass: 'out', outOfScope: true };
-    if (width <= 359) return { device, priority: '低', priorityClass: 'low' };
-    if (width <= 374) return { device, priority: '中', priorityClass: 'medium' };
-    if (width <= 414) return { device, priority: '高', priorityClass: 'high' };
-    if (width <= 430) return { device, priority: '中', priorityClass: 'medium' };
-    if (width <= 767) return { device, priority: '低', priorityClass: 'low' };
-    if (width <= 819) return { device, priority: '中', priorityClass: 'medium' };
-    if (width <= 1024) return { device, priority: '高', priorityClass: 'high' };
-    if (width <= 1279) return { device, priority: '中', priorityClass: 'medium' };
-    if (width <= 1440) return { device, priority: '高', priorityClass: 'high' };
-    if (width <= 1920) return { device, priority: '中', priorityClass: 'medium' };
-    return { device, priority: '低', priorityClass: 'low' };
+    if (width <= 319) return { device: 'SP極狭', priority: '低', priorityClass: 'out', outOfScope: true };
+    if (width <= 359) return { device: 'SP極狭', priority: '低', priorityClass: 'low' };
+    if (width <= 374) return { device: 'SP狭め', priority: '低', priorityClass: 'low' };
+    if (width <= 414) return { device: 'SP', priority: '高', priorityClass: 'high' };
+    if (width <= 430) return { device: 'SP広め', priority: '中', priorityClass: 'medium' };
+    if (width <= 767) return { device: 'SP極広', priority: '低', priorityClass: 'low' };
+    if (width <= 819) return { device: 'Tab狭め', priority: '中', priorityClass: 'medium' };
+    if (width <= 1024) return { device: 'Tab', priority: '高', priorityClass: 'high' };
+    if (width <= 1279) return { device: 'Tab横向き／PC小さめ', priority: '中', priorityClass: 'medium' };
+    if (width <= 1440) return { device: 'PC', priority: '高', priorityClass: 'high' };
+    if (width <= 1920) return { device: 'PC広め', priority: '中', priorityClass: 'medium' };
+    if (width <= 2560) return { device: 'PC（外部モニター）', priority: '中', priorityClass: 'medium' };
+    return { device: 'PC（外部モニター極広）', priority: '低', priorityClass: 'out', outOfScope: true };
 }
 
 function updateControlsHeight() {
