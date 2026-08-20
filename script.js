@@ -228,3 +228,28 @@ document.addEventListener('DOMContentLoaded', function() {
         imageModeFluidCSS.media = this.checked ? 'all' : 'none';
     });
 });
+
+// レスポンシブ仕様図の拡大表示
+document.addEventListener('DOMContentLoaded', function() {
+    const zoomButton = document.querySelector('.responsive-spec-zoom');
+    const dialog = document.getElementById('responsive-spec-dialog');
+    const closeButton = dialog?.querySelector('.image-dialog-close');
+
+    if (!zoomButton || !dialog || !closeButton) return;
+
+    zoomButton.addEventListener('click', function() {
+        dialog.showModal();
+    });
+
+    closeButton.addEventListener('click', function() {
+        dialog.close();
+        zoomButton.focus();
+    });
+
+    dialog.addEventListener('click', function(event) {
+        if (event.target === dialog) {
+            dialog.close();
+            zoomButton.focus();
+        }
+    });
+});

@@ -127,4 +127,43 @@ html {
     font-size: 1rem; /* html要素のfont-sizeを継承 */
 }
 
+/* 追加デモセクション */
+.features,
+.story,
+.metrics,
+.faq,
+.responsive-spec {
+    padding: 5.555556vw 2.777778vw; /* 80px 40px / 1440 * 100 */
+}
+
+.feature-grid {
+    gap: 1.388889vw; /* 20px / 1440 * 100 */
+}
+
+.feature-card {
+    padding: 1.527778vw; /* 22px / 1440 * 100 */
+}
+
+.feature-card h3 {
+    font-size: 1.388889vw; /* 20px / 1440 * 100 */
+}
+
+.feature-card p,
+.story-content p,
+.faq-list details p {
+    font-size: 1.041667vw; /* 15px / 1440 * 100 */
+}
+
+.story-inner {
+    gap: 4.166667vw; /* 60px / 1440 * 100 */
+}
+
+.metrics-grid dd {
+    font-size: 3.333333vw; /* 48px / 1440 * 100 */
+}
+
+.faq-list summary {
+    font-size: 1.111111vw; /* 16px / 1440 * 100 */
+}
+
 /* タブバーの文字サイズとパディングは固定のまま */

@@ -1,10 +1,10 @@
 /* 画像幅をウィンドウ幅と連動させるモード（1440px基準） */
 
-.about-inner {
+.about-inner,
+.story-inner {
     max-width: 75vw; /* 1080px / 1440 * 100 */
 }
 
 .gallery-inner {
     max-width: 75vw; /* 1080px / 1440 * 100 */
 }
-

@@ -1,6 +1,7 @@
 /* 画像のアスペクト比を固定モード */
 
-.about-image img {
+.about-image img,
+.story-image img {
     width: 100%;
     height: auto;
     object-fit: contain;
@@ -11,4 +12,3 @@
     height: auto;
     object-fit: contain;
 }
-

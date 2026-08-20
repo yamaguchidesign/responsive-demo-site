@@ -196,6 +196,77 @@
         </div>
       </section>
 
+      <section class="features">
+        <div class="demo-section-inner">
+          <h2 class="section-title">私たちの特徴</h2>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-visual" aria-hidden="true"></div>
+              <h3>課題を整理する</h3>
+              <p>目的と現在地を整理し、取り組むべき課題を明確にします。</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-visual" aria-hidden="true"></div>
+              <h3>仕組みを設計する</h3>
+              <p>運用まで見据え、無理なく継続できる仕組みを設計します。</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-visual" aria-hidden="true"></div>
+              <h3>改善を続ける</h3>
+              <p>公開後の変化を確かめながら、より良い状態へ更新します。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="story">
+        <div class="story-inner">
+          <div class="story-content">
+            <h2 class="section-title">チームでつくる</h2>
+            <p>専門性の異なるメンバーが、構想から実装まで一つのチームとして伴走します。</p>
+            <p>情報を共有しながら進めることで、判断のずれを減らし、品質とスピードを両立します。</p>
+          </div>
+          <div class="story-image">
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
+              alt="テーブルを囲んで話し合うチーム"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <div class="demo-section-inner">
+          <h2 class="section-title">数字で見る実績</h2>
+          <dl class="metrics-grid">
+            <div><dt>継続率</dt><dd>92<small>%</small></dd></div>
+            <div><dt>支援実績</dt><dd>180<small>件</small></dd></div>
+            <div><dt>平均期間</dt><dd>8<small>年</small></dd></div>
+            <div><dt>対応地域</dt><dd>12<small>地域</small></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="faq">
+        <div class="demo-section-inner faq-inner">
+          <h2 class="section-title">よくある質問</h2>
+          <div class="faq-list">
+            <details>
+              <summary>相談する段階で要件が決まっていなくても大丈夫ですか？</summary>
+              <p>はい。目的や課題を整理するところから一緒に進めます。</p>
+            </details>
+            <details>
+              <summary>プロジェクトの期間はどのくらいですか？</summary>
+              <p>内容によって異なりますが、初回相談時に想定スケジュールをご案内します。</p>
+            </details>
+            <details>
+              <summary>公開後の運用や改善も依頼できますか？</summary>
+              <p>定期的な更新、効果検証、改善提案まで継続して対応できます。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <section id="article-detail" class="article-detail">
         <div class="article-detail-inner">
           <div class="article-detail-content">
@@ -210,29 +281,23 @@
       <section id="responsive-spec" class="responsive-spec">
         <div class="responsive-spec-inner">
           <h2 class="responsive-spec-title">レスポンシブ対応仕様</h2>
-          <p class="responsive-spec-lead">
-            SP・Tab・PCの制作基準幅を中心に、画面幅ごとの作り込みと確認の強度を3段階で定めます。
-          </p>
-
-          <div class="responsive-spec-method">
-            <p><strong>優先度 高</strong>制作基準幅で定めたpx値を固定で適用し、基準デザインの再現性を優先します。</p>
-            <p><strong>優先度 中</strong><code>clamp(最小値, 推奨値vw, 最大値)</code>を使い、文字サイズや余白が上下限を超えない範囲で画面幅に追従します。</p>
-            <p><strong>優先度 低</strong>vwを中心に要素幅・余白・文字サイズを流動的に調整します。最低文字サイズを設け、可読性と操作性は維持します。</p>
-          </div>
-
           <figure class="responsive-spec-figure">
-            <img
-              src="assets/responsive-spec.png"
-              alt="SP、Tab、PCの画面幅ごとの制作基準、重要な確認幅、対応優先度を示したレスポンシブ仕様図"
-            />
+            <button class="responsive-spec-zoom" type="button" aria-label="レスポンシブ仕様図を拡大表示">
+              <img
+                src="assets/responsive-spec.png"
+                alt="SP、Tab、PCの画面幅ごとの制作基準、重要な確認幅、対応優先度を示したレスポンシブ仕様図"
+              />
+              <span>クリックして拡大</span>
+            </button>
           </figure>
-
-          <p class="responsive-spec-note">
-            基本ブレークポイントは768pxと1025px。最終確認幅は390px、820px、1024px、1280px、1440px、1920pxです。優先度が低い幅でも、崩れ・重なり・横スクロール・操作不能がない状態を保ちます。
-          </p>
         </div>
       </section>
     </main>
+
+    <dialog class="image-dialog" id="responsive-spec-dialog" aria-label="レスポンシブ仕様図の拡大表示">
+      <button class="image-dialog-close" type="button" aria-label="拡大表示を閉じる">閉じる</button>
+      <img src="assets/responsive-spec.png" alt="レスポンシブ対応仕様" />
+    </dialog>
 
     <footer class="footer">
       <div class="footer-inner">
