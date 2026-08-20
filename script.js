@@ -10,7 +10,7 @@ function updateWindowSize() {
 
     if (windowSizeText) windowSizeText.textContent = `${width} × ${height}`;
     if (deviceText) deviceText.textContent = meta.device;
-    if (priorityText) priorityText.textContent = `優先度 ${meta.priority}${meta.outOfScope ? '・動作保証外' : ''}`;
+    if (priorityText) priorityText.textContent = meta.priorityText || `優先度 ${meta.priority}${meta.outOfScope ? '・動作保証外' : ''}`;
     if (display) display.className = `window-size-display priority-${meta.priorityClass}`;
 
     document.body.classList.toggle('mobile-layout', width <= 767);
@@ -29,7 +29,12 @@ function getViewportMeta(width) {
     if (width <= 1279) return { device: 'Tab横向き／PC小さめ', priority: '中', priorityClass: 'medium' };
     if (width <= 1440) return { device: 'PC', priority: '高', priorityClass: 'high' };
     if (width <= 1920) return { device: 'PC広め', priority: '中', priorityClass: 'medium' };
-    if (width <= 2560) return { device: 'PC（外部モニター）', priority: '中', priorityClass: 'medium' };
+    if (width <= 2560) return {
+        device: 'PC(外部モニター)',
+        priority: '低',
+        priorityClass: 'external-monitor',
+        priorityText: '優先度：低(賞を狙うなら中)'
+    };
     return { device: 'PC（外部モニター極広）', priority: '低', priorityClass: 'out', outOfScope: true };
 }
 

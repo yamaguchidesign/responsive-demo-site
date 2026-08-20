@@ -58,6 +58,7 @@ main {
 
 .window-size-display.priority-high { background-color: #f4511e; }
 .window-size-display.priority-medium { background-color: #ef8d00; }
+.window-size-display.priority-external-monitor { background-color: #ffbf00; }
 .window-size-display.priority-low { background-color: #858b92; }
 .window-size-display.priority-out { background-color: #111; }
 
